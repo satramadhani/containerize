@@ -1,14 +1,10 @@
-// The Swift Programming Language
-// https://docs.swift.org/swift-book
-//
-// Swift Argument Parser
-// https://swiftpackageindex.com/apple/swift-argument-parser/documentation
-
 import ArgumentParser
 
 @main
 struct Containerize: ParsableCommand {
-    mutating func run() throws {
-        print("Hello, world!")
-    }
+    static let configuration: CommandConfiguration = CommandConfiguration(
+        abstract: "A personal 'docker compose'-inspired tool for Apple's container.",
+        version: "0.0.1",
+        subcommands: [Up.self, Down.self, Process.self]
+    )
 }
