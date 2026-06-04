@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:Containerize}",
+            "name": "Debug Containerize",
+            "target": "Containerize",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug Containerize"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:Containerize}",
+            "name": "Release Containerize",
+            "target": "Containerize",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release Containerize"
+        }
+    ]
+}
