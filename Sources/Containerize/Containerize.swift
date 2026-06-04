@@ -9,6 +9,8 @@ struct Containerize: ParsableCommand {
             Down.self,
             PS.self,
             Up.self,
+            Start.self,
+            Stop.self
         ]
     )
 }
