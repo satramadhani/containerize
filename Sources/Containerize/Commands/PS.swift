@@ -1,9 +1,9 @@
 import ArgumentParser
 
-struct Process: ParsableCommand {
+struct PS: ParsableCommand {
     static let configuration = CommandConfiguration(
-        abstract: "List all services.",
-        aliases: ["list", "ls", "ps"]
+        abstract: "List all running services.",
+        aliases: ["list", "ls", "process"]
     )
 
     mutating func run() throws {
