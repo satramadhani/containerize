@@ -6,8 +6,8 @@ struct Up: ParsableCommand {
         name: .shortAndLong,
         help:
             """
-            Compose or Containerize file. If not specified, it will look for a file named 'containerize.yml' or \
-            'docker-compose.yml' in the current directory.
+            Compose or Containerize file. If not specified, it will look for a file named 'docker-compose.yml' or \
+            'containerize.yml' in the current directory.
             """
     )
     var file: String?
@@ -17,27 +17,17 @@ struct Up: ParsableCommand {
     )
 
     mutating func run() throws {
-        print("Starting services...")
+        let path = try URLResolver.resolve(file)
+        let compose = try Parser.parse(from: path)
 
-        if (file == nil) {
-            file = "docker-compose.yml"
-
-            if !FileManager.default.fileExists(atPath: file!) {
-                file = "containerize.yml"
-            }
-
-            if !FileManager.default.fileExists(atPath: file!) {
-                print("No docker-compose.yml or containerize.yml found in current directory.")
-                return
-            }
+        for (name, service) in compose.services {
+            print("Starting \(name)...")
+            try Runner.run([
+                "run",
+                "--detach",
+                "--name", name,
+                service.image ?? ""
+            ])
         }
-
-        if !FileManager.default.fileExists(atPath: file!) {
-            print("\(file!) does not exist.")
-            return
-        }
-        
-        let compose = try Parser.parse(from: URL(fileURLWithPath: file!))
-        dump(compose)
     }
 }

@@ -7,6 +7,6 @@ struct PS: ParsableCommand {
     )
 
     mutating func run() throws {
-        print("Listing services...")
+        try Runner.run(["ls"])
     }
 }
