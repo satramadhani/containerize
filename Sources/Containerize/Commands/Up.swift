@@ -22,12 +22,21 @@ struct Up: ParsableCommand {
 
         for (name, service) in compose.services {
             print("Starting \(name)...")
-            try Runner.run([
-                "run",
-                "--detach",
-                "--name", name,
-                service.image ?? ""
-            ])
+            var arguments = ["run", "--detach", "--name", name, service.image ?? ""]
+
+            if let ports = service.ports {
+                for port in ports {
+                    arguments += ["-p", port]
+                }
+            }
+
+            if let environments = service.environment {
+                for (key, value) in environments {
+                    arguments += ["-e", "\(key)=\(value)"]
+                }
+            }
+
+            try Runner.run(arguments)
         }
     }
 }
