@@ -19,8 +19,11 @@ struct Up: ParsableCommand {
     mutating func run() throws {
         let path = try URLResolver.resolve(file)
         let compose = try Parser.parse(from: path)
+        let ordered = try DependencyResolver.resolve(compose.services)
 
-        for (name, service) in compose.services {
+        for name in ordered {
+            let service = compose.services[name]!
+            
             print("Starting \(name)...")
             var arguments = ["run", "--detach", "--name", name, service.image ?? ""]
 
