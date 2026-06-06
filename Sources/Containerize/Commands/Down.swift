@@ -19,8 +19,9 @@ struct Down: ParsableCommand {
     mutating func run() throws {
         let path = try URLResolver.resolve(file)
         let compose = try Parser.parse(from: path)
+        let ordered = try DependencyResolver.resolve(compose.services)
 
-        for (name, _) in compose.services {
+        for name in ordered.reversed() {
             print("Stopping \(name)...")
             try Runner.run(["stop", name])
         }
