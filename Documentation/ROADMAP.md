@@ -7,7 +7,7 @@
 - [x] Core commands: `start`, `up`, `ps`, `down`, `stop`.
 
 [June 05, 2026]
-- [x] Minimal support for properties: `environment`, `ports`.
+- [x] Minimal support for options: `environment`, `ports`.
 - [x] Dependency-based execution ordering on startup.
 
 [June 06, 2026]
@@ -19,4 +19,5 @@
 - [ ] Support dockerfile build context.
 - [ ] Support volume mounting configuration (`volumes` array mapping to `-v`).
 - [ ] Custom runtime path configuration.
+- [ ] Add `KEY=VALUE` support for `environment` option.
 - [ ] ...
