@@ -43,16 +43,7 @@ services:
 
 ## Features & Roadmap Checklist
 
-- [x] Basic YAML parsing via [Yams](https://github.com/jpsim/Yams)
-- [x] CLI structure powered by Swift [ArgumentParser](https://github.com/apple/swift-argument-parser)
-- [x] Core commands: `start`, `up`, `ps`, `down`, `stop`
-- [x] Dependency-based execution ordering on startup
-- [ ] Circular dependency detection in resolver
-- [ ] Safe reverse-topological order on service shutdown (`down`)
-- [ ] Support dockerfile build context (`build` mapping to container build/image compilation)
-- [ ] Support volume mounting configuration (`volumes` array mapping to `-v`)
-- [ ] Custom runtime path configuration
-- ...
+For a detailed feature list and roadmap, see [ROADMAP.md](Documentation/ROADMAP.md).
 
 ---
 
