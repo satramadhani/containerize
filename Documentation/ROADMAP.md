@@ -14,10 +14,13 @@
 - [x] Circular dependency detection in resolver.
 - [x] Safe reverse-topological order on service shutdown (`down`).
 
+[June 08, 2026]
+- [x] Support volume mounting configuration (`volumes` array mapping to `-v`).
+- [x] Add `KEY=VALUE` support for `environment` option.
+- [x] Add custom .env file.
+
 ## TO-DO
 
 - [ ] Support dockerfile build context.
-- [ ] Support volume mounting configuration (`volumes` array mapping to `-v`).
 - [ ] Custom runtime path configuration.
-- [ ] Add `KEY=VALUE` support for `environment` option.
 - [ ] ...
