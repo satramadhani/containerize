@@ -33,6 +33,10 @@ struct Up: ParsableCommand {
                 }
             }
 
+            if let env = service.envFile {
+                arguments += ["--env-file", env]
+            }
+
             if let environments = service.environment {
                 for (key, value) in environments {
                     arguments += ["-e", "\(key)=\(value)"]

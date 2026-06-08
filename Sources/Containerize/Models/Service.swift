@@ -2,6 +2,7 @@ struct Service : Codable {
     let image: String?
     let build: Build?
     let ports: [String]?
+    let envFile: String?
     let environment: [String: String]?
     let volumes: [String]?
     let dependsOn: [String]?
@@ -39,6 +40,7 @@ struct Service : Codable {
             environment = nil
         }
         
+        envFile = try container.decodeIfPresent(String.self, forKey: .envFile)
         ports = try container.decodeIfPresent([String].self, forKey: .ports)
         volumes = try container.decodeIfPresent([String].self, forKey: .volumes)
         dependsOn = try container.decodeIfPresent([String].self, forKey: .dependsOn)
@@ -48,6 +50,7 @@ struct Service : Codable {
         case image
         case build
         case ports
+        case envFile = "env_file"
         case environment
         case volumes
         case dependsOn = "depends_on"
