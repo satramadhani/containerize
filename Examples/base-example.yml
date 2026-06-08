@@ -3,6 +3,8 @@ services:
     image: postgres:latest
     environment:
       POSTGRES_PASSWORD: secret
+    volumes:
+      - ./data:/var/lib/postgresql/data
     depends_on:
       - web
   web:

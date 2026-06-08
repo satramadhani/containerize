@@ -39,6 +39,12 @@ struct Up: ParsableCommand {
                 }
             }
 
+            if let volumes = service.volumes {
+                for volume in volumes {
+                    arguments += ["-v", volume]
+                }
+            }
+
             try Runner.run(arguments)
         }
     }
