@@ -25,7 +25,7 @@ struct Up: ParsableCommand {
             let service = compose.services[name]!
             
             print("Starting \(name)...")
-            var arguments = ["run", "--detach", "--name", name, service.image ?? ""]
+            var arguments = ["run", "--detach", "--name", name]
 
             if let ports = service.ports {
                 for port in ports {
@@ -39,12 +39,27 @@ struct Up: ParsableCommand {
                 }
             }
 
+            let composeDirectory = path.deletingLastPathComponent()
             if let volumes = service.volumes {
                 for volume in volumes {
-                    arguments += ["-v", volume]
+                    let parts = volume.split(separator: ":", maxSplits: 1)
+                    if parts.count == 2 {
+                        let hostPath = String(parts[0])
+                        let containerPath = String(parts[1])
+                        let resolvedHost = composeDirectory.appendingPathComponent(hostPath).path
+
+                        if !FileManager.default.fileExists(atPath: resolvedHost) {
+                            try FileManager.default.createDirectory(atPath: resolvedHost, withIntermediateDirectories: true)
+                        }
+
+                        arguments += ["-v", "\(resolvedHost):\(containerPath)"]
+                    } else {
+                        arguments += ["-v", volume]
+                    }
                 }
             }
 
+            arguments.append(service.image ?? "")
             try Runner.run(arguments)
         }
     }
