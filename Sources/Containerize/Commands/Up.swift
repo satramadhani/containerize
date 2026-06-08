@@ -43,28 +43,36 @@ struct Up: ParsableCommand {
                 }
             }
 
-            let composeDirectory = path.deletingLastPathComponent()
             if let volumes = service.volumes {
-                for volume in volumes {
-                    let parts = volume.split(separator: ":", maxSplits: 1)
-                    if parts.count == 2 {
-                        let hostPath = String(parts[0])
-                        let containerPath = String(parts[1])
-                        let resolvedHost = composeDirectory.appendingPathComponent(hostPath).path
-
-                        if !FileManager.default.fileExists(atPath: resolvedHost) {
-                            try FileManager.default.createDirectory(atPath: resolvedHost, withIntermediateDirectories: true)
-                        }
-
-                        arguments += ["-v", "\(resolvedHost):\(containerPath)"]
-                    } else {
-                        arguments += ["-v", volume]
-                    }
-                }
+                let volumes = try getVolume(volumes: volumes, path: path)
+                arguments += volumes
             }
 
             arguments.append(service.image ?? "")
             try Runner.run(arguments)
         }
+    }
+
+    private func getVolume(volumes: [String], path: URL) throws -> [String] {
+        let composeDirectory = path.deletingLastPathComponent()
+        var result: [String] = []
+
+        for volume in volumes {
+            let parts = volume.split(separator: ":", maxSplits: 1)
+            if parts.count == 2 {
+                let hostPath = String(parts[0])
+                let containerPath = String(parts[1])
+                let resolvedHost = composeDirectory.appendingPathComponent(hostPath).path
+                if !FileManager.default.fileExists(atPath: resolvedHost) {
+                    try FileManager.default.createDirectory(atPath: resolvedHost, withIntermediateDirectories: true)
+                }
+
+                result += ["-v", "\(resolvedHost):\(containerPath)"]
+            } else {
+                result += ["-v", volume]
+            }
+        }
+
+        return result
     }
 }
