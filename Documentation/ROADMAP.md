@@ -19,8 +19,11 @@
 - [x] Add `KEY=VALUE` support for `environment` option.
 - [x] Add custom .env file.
 
+[June 09, 2026]
+- [x] Add minimal custom runtime path configuration.
+
 ## TO-DO
 
 - [ ] Support dockerfile build context.
-- [ ] Custom runtime path configuration.
-- [ ] ...
+- [ ] Improve structure and performance.
+- [ ] Look for other solutions for `nonisolated(unsafe)` in `Runner`.
