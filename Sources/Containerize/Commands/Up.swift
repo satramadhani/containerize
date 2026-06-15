@@ -34,7 +34,12 @@ struct Up: ParsableCommand {
             }
 
             if let env = service.envFile {
+                if !FileManager.default.fileExists(atPath: env) {
+                    throw UpError.envFileNotFound(env)
+                }
+
                 arguments += ["--env-file", env]
+
             }
 
             if let environments = service.environment {
