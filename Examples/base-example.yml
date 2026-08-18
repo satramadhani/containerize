@@ -1,5 +1,5 @@
 services:
-  db:
+  base-example-db:
     image: postgres:latest
     environment:
       POSTGRES_PASSWORD: secret
@@ -7,7 +7,7 @@ services:
       - ./data:/var/lib/postgresql/data
     depends_on:
       - web
-  web:
+  base-example-web:
     image: nginx:latest
     ports:
       - "8080:80"
