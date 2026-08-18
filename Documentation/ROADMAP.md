@@ -22,6 +22,9 @@
 [June 09, 2026]
 - [x] Add minimal custom runtime path configuration.
 
+[August 18, 2026]
+- [x] Add auto-load .env and its default value support. 
+
 ## TO-DO
 
 - [ ] Support dockerfile build context.

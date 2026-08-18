@@ -1,0 +1,5 @@
+services:
+  custom-env-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
